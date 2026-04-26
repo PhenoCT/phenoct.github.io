@@ -1,0 +1,1324 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Comprehensive CT-based biomarkers from automated organ segmentation — documentation for the PhenoCT Python package.">
+      
+      
+        <meta name="author" content="Lavsen Dahal">
+      
+      
+      
+        <link rel="prev" href="../vascular/">
+      
+      
+        <link rel="next" href="../fluid-gas/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Bowel - Image-Derived Phenotypes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#bowel-extractor" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Image-Derived Phenotypes" class="md-header__button md-logo" aria-label="Image-Derived Phenotypes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Image-Derived Phenotypes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Bowel
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Image-Derived Phenotypes" class="md-nav__button md-logo" aria-label="Image-Derived Phenotypes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Image-Derived Phenotypes
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Extractors
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Extractors
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../organ-morphology/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Organ Morphology
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cardiothoracic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cardiothoracic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hepatobiliary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hepatobiliary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../vascular/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vascular
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bowel
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bowel
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Methods
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#small-bowel-obstruction-sbo-maximum-diameter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Small Bowel Obstruction (SBO) — Maximum Diameter
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hiatal-hernia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hiatal Hernia
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pericolonic-fat-stranding-colitis-diverticulitis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pericolonic Fat Stranding (Colitis / Diverticulitis)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bowel-wall-hu-submucosal-edema" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bowel Wall HU (Submucosal Edema)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#full-feature-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Full Feature Table
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fluid-gas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fluid & Gas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bone/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bone
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../kidney/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kidney
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../appendix/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Appendix / RLQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../feature-reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Feature Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Methods
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#small-bowel-obstruction-sbo-maximum-diameter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Small Bowel Obstruction (SBO) — Maximum Diameter
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hiatal-hernia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hiatal Hernia
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pericolonic-fat-stranding-colitis-diverticulitis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pericolonic Fat Stranding (Colitis / Diverticulitis)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bowel-wall-hu-submucosal-edema" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bowel Wall HU (Submucosal Edema)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#full-feature-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Full Feature Table
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Navigation" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Home
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Extractors
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="bowel-extractor">Bowel Extractor<a class="headerlink" href="#bowel-extractor" title="Permanent link">&para;</a></h1>
+<p><code>BowelExtractor</code> extracts features relevant to gastrointestinal pathology including small bowel obstruction, hiatal hernia, colitis/diverticulitis, and bowel wall edema.</p>
+<p><strong>Required masks:</strong> <code>organ_seg</code></p>
+<hr />
+<h2 id="methods">Methods<a class="headerlink" href="#methods" title="Permanent link">&para;</a></h2>
+<h3 id="small-bowel-obstruction-sbo-maximum-diameter">Small Bowel Obstruction (SBO) — Maximum Diameter<a class="headerlink" href="#small-bowel-obstruction-sbo-maximum-diameter" title="Permanent link">&para;</a></h3>
+<p>Uses <strong>bounding-box-cropped EDT</strong> to estimate the maximum diameter of the small bowel (small_bowel + duodenum) and colon:</p>
+<ol>
+<li>Find the tight bounding box around the organ mask</li>
+<li>Run <code>scipy.ndimage.distance_transform_edt</code> on the cropped sub-volume with anisotropic spacing</li>
+<li>Diameter = 2 × 99<sup>th</sup> percentile radius (robust to outliers)</li>
+</ol>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>max_diameter = 2 × np.percentile(EDT[mask], 99)
+</span></code></pre></div>
+<p><strong>SBO indicator:</strong> Ratio of small bowel to colon diameter — a ratio &gt; 1 (dilated small bowel with normal or collapsed colon) is suspicious for obstruction.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>sb_to_colon_diam_ratio = sb_max_diam_mm / colon_max_diam_mm
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Fast mode</p>
+<p>With <code>fast_mode=True</code>, the EDT is computed per axial slice (2D) instead of 3D, which is 10–50× faster and uses only in-plane spacing (X–Y axes).</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Unit</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>sb_max_diam_mm</code></td>
+<td>mm</td>
+<td>Maximum diameter of small bowel + duodenum</td>
+</tr>
+<tr>
+<td><code>colon_max_diam_mm</code></td>
+<td>mm</td>
+<td>Maximum diameter of colon</td>
+</tr>
+<tr>
+<td><code>sb_to_colon_diam_ratio</code></td>
+<td>—</td>
+<td>Small bowel / colon diameter ratio</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="hiatal-hernia">Hiatal Hernia<a class="headerlink" href="#hiatal-hernia" title="Permanent link">&para;</a></h3>
+<p>Detects stomach herniation above the diaphragm (liver dome).</p>
+<p><strong>Algorithm (RAS+ correct):</strong>
+1. Find the <strong>maximum Z coordinate</strong> of the liver — this is the liver top (most superior point = diaphragm level)
+2. Count stomach voxels where Z &gt; liver_top_z (stomach voxels superior to diaphragm)</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>z_liver_top = max(liver_coords[Z])
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>herniated = count(stomach_z &gt; z_liver_top)
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>hiatal_hernia_volume_cc = herniated × voxel_vol_cc
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>hiatal_hernia_percent   = herniated / total_stomach_voxels
+</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Unit</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>hiatal_hernia_volume_cc</code></td>
+<td>mL</td>
+<td>Volume of stomach above liver dome</td>
+</tr>
+<tr>
+<td><code>hiatal_hernia_percent</code></td>
+<td>fraction</td>
+<td>Fraction of stomach herniated</td>
+</tr>
+<tr>
+<td><code>stomach_total_volume_cc</code></td>
+<td>mL</td>
+<td>Total stomach volume</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="pericolonic-fat-stranding-colitis-diverticulitis">Pericolonic Fat Stranding (Colitis / Diverticulitis)<a class="headerlink" href="#pericolonic-fat-stranding-colitis-diverticulitis" title="Permanent link">&para;</a></h3>
+<p>Creates a <strong>5 mm shell</strong> around the colon via binary dilation and measures fat within the shell:</p>
+<ol>
+<li>Dilate colon mask by <code>round(5.0 / avg_spacing)</code> iterations</li>
+<li>Shell = dilated region &amp; ~colon_mask &amp; background (seg == 0)</li>
+<li>Filter shell to fat HU range: −150 to −30 HU</li>
+</ol>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>shell = binary_dilation(colon, 5mm) &amp; ~colon &amp; background
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>fat_in_shell = shell_voxels where -150 ≤ HU ≤ -30
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>colon_surr_fat_mean_hu = mean(fat_in_shell)
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>colon_surr_fat_p90_hu  = percentile(fat_in_shell, 90)
+</span></code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Elevated pericolonic fat HU (less negative, closer to 0) indicates fat stranding — inflammation raising fat density toward water.</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Unit</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>colon_surr_fat_mean_hu</code></td>
+<td>HU</td>
+<td>Mean fat HU in 5mm pericolonic shell</td>
+</tr>
+<tr>
+<td><code>colon_surr_fat_p90_hu</code></td>
+<td>HU</td>
+<td>90<sup>th</sup> percentile fat HU in shell</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="bowel-wall-hu-submucosal-edema">Bowel Wall HU (Submucosal Edema)<a class="headerlink" href="#bowel-wall-hu-submucosal-edema" title="Permanent link">&para;</a></h3>
+<p>The bowel wall is isolated via <strong>binary erosion</strong>:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>eroded = binary_erosion(bowel_mask, iterations=1)
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>wall = bowel_mask &amp; ~eroded
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>wall_hu = clip(CT[wall], -50, 150)
+</span></code></pre></div>
+<p>Elevated wall HU indicates submucosal edema (e.g., ischemic colitis, Crohn's). Wall HU values are clipped to −50 to +150 to exclude air and calcium artifacts.</p>
+<p>Computed for both <strong>small bowel</strong> (small_bowel + duodenum) and <strong>colon</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Unit</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>small_bowel_wall_mean_hu</code></td>
+<td>HU</td>
+<td>Mean HU of small bowel wall</td>
+</tr>
+<tr>
+<td><code>small_bowel_wall_std_hu</code></td>
+<td>HU</td>
+<td>Std of small bowel wall HU</td>
+</tr>
+<tr>
+<td><code>small_bowel_wall_p10_hu</code></td>
+<td>HU</td>
+<td>10<sup>th</sup> percentile</td>
+</tr>
+<tr>
+<td><code>small_bowel_wall_p90_hu</code></td>
+<td>HU</td>
+<td>90<sup>th</sup> percentile</td>
+</tr>
+<tr>
+<td><code>colon_wall_mean_hu</code></td>
+<td>HU</td>
+<td>Mean HU of colon wall</td>
+</tr>
+<tr>
+<td><code>colon_wall_std_hu</code></td>
+<td>HU</td>
+<td>Std of colon wall HU</td>
+</tr>
+<tr>
+<td><code>colon_wall_p10_hu</code></td>
+<td>HU</td>
+<td>10<sup>th</sup> percentile</td>
+</tr>
+<tr>
+<td><code>colon_wall_p90_hu</code></td>
+<td>HU</td>
+<td>90<sup>th</sup> percentile</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="full-feature-table">Full Feature Table<a class="headerlink" href="#full-feature-table" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Unit</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>sb_max_diam_mm</code></td>
+<td>mm</td>
+<td>Small bowel maximum diameter</td>
+</tr>
+<tr>
+<td><code>colon_max_diam_mm</code></td>
+<td>mm</td>
+<td>Colon maximum diameter</td>
+</tr>
+<tr>
+<td><code>sb_to_colon_diam_ratio</code></td>
+<td>—</td>
+<td>SBO indicator ratio</td>
+</tr>
+<tr>
+<td><code>hiatal_hernia_volume_cc</code></td>
+<td>mL</td>
+<td>Herniated stomach volume</td>
+</tr>
+<tr>
+<td><code>hiatal_hernia_percent</code></td>
+<td>fraction</td>
+<td>Fraction of stomach herniated</td>
+</tr>
+<tr>
+<td><code>stomach_total_volume_cc</code></td>
+<td>mL</td>
+<td>Total stomach volume</td>
+</tr>
+<tr>
+<td><code>colon_surr_fat_mean_hu</code></td>
+<td>HU</td>
+<td>Pericolonic fat mean HU</td>
+</tr>
+<tr>
+<td><code>colon_surr_fat_p90_hu</code></td>
+<td>HU</td>
+<td>Pericolonic fat 90<sup>th</sup> percentile HU</td>
+</tr>
+<tr>
+<td><code>small_bowel_wall_mean_hu</code></td>
+<td>HU</td>
+<td>Small bowel wall mean HU</td>
+</tr>
+<tr>
+<td><code>small_bowel_wall_std_hu</code></td>
+<td>HU</td>
+<td>Small bowel wall HU std</td>
+</tr>
+<tr>
+<td><code>small_bowel_wall_p10_hu</code></td>
+<td>HU</td>
+<td>Small bowel wall HU p10</td>
+</tr>
+<tr>
+<td><code>small_bowel_wall_p90_hu</code></td>
+<td>HU</td>
+<td>Small bowel wall HU p90</td>
+</tr>
+<tr>
+<td><code>colon_wall_mean_hu</code></td>
+<td>HU</td>
+<td>Colon wall mean HU</td>
+</tr>
+<tr>
+<td><code>colon_wall_std_hu</code></td>
+<td>HU</td>
+<td>Colon wall HU std</td>
+</tr>
+<tr>
+<td><code>colon_wall_p10_hu</code></td>
+<td>HU</td>
+<td>Colon wall HU p10</td>
+</tr>
+<tr>
+<td><code>colon_wall_p90_hu</code></td>
+<td>HU</td>
+<td>Colon wall HU p90</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../vascular/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Vascular">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Vascular
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../fluid-gas/" class="md-footer__link md-footer__link--next" aria-label="Next: Fluid &amp; Gas">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Fluid & Gas
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2025 Lavsen Dahal, Duke University
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["announce.dismiss", "content.code.annotate", "content.code.copy", "content.code.select", "content.footnote.tooltips", "content.tabs.link", "content.tooltips", "navigation.footer", "navigation.indexes", "navigation.instant", "navigation.instant.prefetch", "navigation.path", "navigation.sections", "navigation.top", "navigation.tracking", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

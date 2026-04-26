@@ -1,0 +1,1402 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Comprehensive CT-based biomarkers from automated organ segmentation — documentation for the PhenoCT Python package.">
+      
+      
+        <meta name="author" content="Lavsen Dahal">
+      
+      
+      
+        <link rel="prev" href="../hepatobiliary/">
+      
+      
+        <link rel="next" href="../bowel/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Vascular - Image-Derived Phenotypes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#vascular-extractor" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Image-Derived Phenotypes" class="md-header__button md-logo" aria-label="Image-Derived Phenotypes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Image-Derived Phenotypes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Vascular
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Image-Derived Phenotypes" class="md-nav__button md-logo" aria-label="Image-Derived Phenotypes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Image-Derived Phenotypes
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Extractors
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Extractors
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../organ-morphology/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Organ Morphology
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cardiothoracic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cardiothoracic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hepatobiliary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hepatobiliary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vascular
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vascular
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#vessels-analyzed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vessels Analyzed
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Methods
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#volume-hu-statistics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Volume &amp; HU Statistics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vessel-diameter-length" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vessel Diameter &amp; Length
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vessel-hu-heterogeneity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vessel HU Heterogeneity
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aortic-calcification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Aortic Calcification
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cross-vessel-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cross-Vessel Features
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#full-feature-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Full Feature Table
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bowel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bowel
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fluid-gas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fluid & Gas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bone/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bone
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../kidney/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kidney
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../appendix/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Appendix / RLQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../feature-reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Feature Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#vessels-analyzed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vessels Analyzed
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Methods
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#volume-hu-statistics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Volume &amp; HU Statistics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vessel-diameter-length" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vessel Diameter &amp; Length
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vessel-hu-heterogeneity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vessel HU Heterogeneity
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aortic-calcification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Aortic Calcification
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cross-vessel-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cross-Vessel Features
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#full-feature-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Full Feature Table
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Navigation" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Home
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Extractors
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="vascular-extractor">Vascular Extractor<a class="headerlink" href="#vascular-extractor" title="Permanent link">&para;</a></h1>
+<p><code>VascularExtractor</code> computes comprehensive measurements for three major abdominal vessels: the <strong>aorta</strong>, <strong>portal vein + splenic vein</strong>, and <strong>inferior vena cava (IVC)</strong>. Features support screening for aneurysm, thrombosis, vascular calcification, and contrast phase assessment.</p>
+<p><strong>Required masks:</strong> <code>organ_seg</code></p>
+<hr />
+<h2 id="vessels-analyzed">Vessels Analyzed<a class="headerlink" href="#vessels-analyzed" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Vessel</th>
+<th>TotalSegmentator label</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Aorta</td>
+<td><code>aorta</code></td>
+</tr>
+<tr>
+<td>Portal + Splenic vein</td>
+<td><code>portal_vein_and_splenic_vein</code></td>
+</tr>
+<tr>
+<td>Inferior Vena Cava</td>
+<td><code>inferior_vena_cava</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="methods">Methods<a class="headerlink" href="#methods" title="Permanent link">&para;</a></h2>
+<h3 id="volume-hu-statistics">Volume &amp; HU Statistics<a class="headerlink" href="#volume-hu-statistics" title="Permanent link">&para;</a></h3>
+<p>Standard volume and HU statistics are computed per vessel (mean, std, median, min, max, p10, p25, p75, p90, CV).</p>
+<p><strong>HU histogram (8 bins):</strong> Same bins as OrganMorphology (<code>hu_hist_0</code> through <code>hu_hist_7</code>), normalized fractions. Used to assess vessel opacification patterns.</p>
+<p><strong>Coefficient of variation:</strong>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>hu_cv = hu_std / hu_mean   (if hu_mean &gt; 0)
+</span></code></pre></div></p>
+<hr />
+<h3 id="vessel-diameter-length">Vessel Diameter &amp; Length<a class="headerlink" href="#vessel-diameter-length" title="Permanent link">&para;</a></h3>
+<p>Two modes are available:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Standard mode (3D skeletonization)</label><label for="__tabbed_1_2">Fast mode (slice-wise 2D EDT)</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<ol>
+<li>Skeletonize the vessel mask with <code>skimage.morphology.skeletonize</code></li>
+<li>Compute 3D EDT on the cropped vessel bounding box with anisotropic spacing</li>
+<li>Diameter at each skeleton voxel = 2 × EDT radius</li>
+<li>Aggregate over all skeleton points</li>
+</ol>
+</div>
+<div class="tabbed-block">
+<p>For each axial slice (Z):</p>
+<ol>
+<li>Extract the 2D cross-section of the vessel mask</li>
+<li>Compute 2D EDT using in-plane spacing (X–Y only)</li>
+<li>Diameter for this slice = 2 × max(EDT)</li>
+<li>Aggregate per-slice diameters</li>
+</ol>
+<p><strong>Length</strong> = number of valid slices × slice thickness × 1.2 (tortuosity correction)</p>
+<p>50–100× faster than full 3D skeletonization, minimal accuracy loss.</p>
+</div>
+</div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Use <code>VascularExtractor(fast_mode=True)</code> for batch processing.</p>
+</div>
+<p><strong>Diameter statistics:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>vessel_diam_mean</code></td>
+<td>Mean diameter across skeleton</td>
+</tr>
+<tr>
+<td><code>vessel_diam_std</code></td>
+<td>Standard deviation</td>
+</tr>
+<tr>
+<td><code>vessel_diam_p50</code></td>
+<td>Median diameter</td>
+</tr>
+<tr>
+<td><code>vessel_diam_p75</code></td>
+<td>75<sup>th</sup> percentile</td>
+</tr>
+<tr>
+<td><code>vessel_diam_p90</code></td>
+<td>90<sup>th</sup> percentile</td>
+</tr>
+<tr>
+<td><code>vessel_diam_max</code></td>
+<td>Maximum diameter</td>
+</tr>
+<tr>
+<td><code>vessel_diam_cv</code></td>
+<td>CV = std/mean</td>
+</tr>
+<tr>
+<td><code>vessel_length_mm</code></td>
+<td>Estimated vessel length</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Aorta-specific:</strong> <code>max_diam_location_z_mm</code> — craniocaudal position (in mm) of the maximum diameter point, used for aneurysm localization.</p>
+<hr />
+<h3 id="vessel-hu-heterogeneity">Vessel HU Heterogeneity<a class="headerlink" href="#vessel-hu-heterogeneity" title="Permanent link">&para;</a></h3>
+<p>Sampled along the skeleton centerline (or approximate centerline in fast mode):</p>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>hu_heterogeneity_std</code></td>
+<td>Std of centerline HU values</td>
+</tr>
+<tr>
+<td><code>hu_heterogeneity_range</code></td>
+<td>Max − min of centerline HU</td>
+</tr>
+<tr>
+<td><code>hu_heterogeneity_cv</code></td>
+<td>CV of centerline HU</td>
+</tr>
+<tr>
+<td><code>hu_heterogeneity_entropy</code></td>
+<td>Shannon entropy (50-bin histogram)</td>
+</tr>
+</tbody>
+</table>
+<p>High heterogeneity along the centerline is a marker for focal pathology (thrombus, dissection).</p>
+<hr />
+<h3 id="aortic-calcification">Aortic Calcification<a class="headerlink" href="#aortic-calcification" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>calc_mask = (CT &gt; 130 HU) &amp; aorta_mask
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>aorta_calc_volume_ml = count(calc_mask) × voxel_vol_ml
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>aorta_calc_fraction  = count(calc_mask) / count(aorta_mask)
+</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Unit</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>aorta_calc_volume_ml</code></td>
+<td>mL</td>
+<td>Volume of aortic calcifications</td>
+</tr>
+<tr>
+<td><code>aorta_calc_fraction</code></td>
+<td>fraction</td>
+<td>Fraction of aorta with HU &gt; 130</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="cross-vessel-features">Cross-Vessel Features<a class="headerlink" href="#cross-vessel-features" title="Permanent link">&para;</a></h3>
+<p>Computed from the three vessel HU means:</p>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Formula</th>
+<th>Clinical use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>aorta_enhancement</code></td>
+<td><code>max(0, aorta_hu_mean − 50)</code></td>
+<td>Contrast bolus strength</td>
+</tr>
+<tr>
+<td><code>pv_aorta_hu_ratio</code></td>
+<td><code>pv_hu / aorta_hu</code></td>
+<td>Portal venous phase quality</td>
+</tr>
+<tr>
+<td><code>ivc_aorta_hu_ratio</code></td>
+<td><code>ivc_hu / aorta_hu</code></td>
+<td>Venous return opacification</td>
+</tr>
+<tr>
+<td><code>vein_opac_gate</code></td>
+<td><code>1 / (1 + exp((aorta_hu − pv_hu) / 20))</code></td>
+<td>PV opacification relative to aorta</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="full-feature-table">Full Feature Table<a class="headerlink" href="#full-feature-table" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Unit</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>{vessel}_volume_ml</code></td>
+<td>mL</td>
+<td>Vessel volume</td>
+</tr>
+<tr>
+<td><code>{vessel}_hu_mean</code></td>
+<td>HU</td>
+<td>Mean HU</td>
+</tr>
+<tr>
+<td><code>{vessel}_hu_std</code></td>
+<td>HU</td>
+<td>Std HU</td>
+</tr>
+<tr>
+<td><code>{vessel}_hu_median</code></td>
+<td>HU</td>
+<td>Median HU</td>
+</tr>
+<tr>
+<td><code>{vessel}_hu_min/max</code></td>
+<td>HU</td>
+<td>Min/max HU</td>
+</tr>
+<tr>
+<td><code>{vessel}_hu_p10/p25/p75/p90</code></td>
+<td>HU</td>
+<td>HU percentiles</td>
+</tr>
+<tr>
+<td><code>{vessel}_hu_cv</code></td>
+<td>—</td>
+<td>HU coefficient of variation</td>
+</tr>
+<tr>
+<td><code>{vessel}_hu_hist_0..7</code></td>
+<td>fraction</td>
+<td>8-bin HU histogram</td>
+</tr>
+<tr>
+<td><code>{vessel}_bbox_x/y/z_mm</code></td>
+<td>mm</td>
+<td>Bounding box dimensions</td>
+</tr>
+<tr>
+<td><code>{vessel}_vessel_length_mm</code></td>
+<td>mm</td>
+<td>Estimated vessel length</td>
+</tr>
+<tr>
+<td><code>{vessel}_vessel_diam_mean/std/p50/p75/p90/max/cv</code></td>
+<td>mm</td>
+<td>Diameter statistics</td>
+</tr>
+<tr>
+<td><code>aorta_max_diam_location_z_mm</code></td>
+<td>mm</td>
+<td>Z position of max aorta diameter</td>
+</tr>
+<tr>
+<td><code>{vessel}_hu_heterogeneity_std/cv/range/entropy</code></td>
+<td>HU/bits</td>
+<td>Centerline heterogeneity</td>
+</tr>
+<tr>
+<td><code>aorta_calc_volume_ml</code></td>
+<td>mL</td>
+<td>Aortic calcification volume</td>
+</tr>
+<tr>
+<td><code>aorta_calc_fraction</code></td>
+<td>fraction</td>
+<td>Aortic calcification fraction</td>
+</tr>
+<tr>
+<td><code>aorta_enhancement</code></td>
+<td>HU</td>
+<td>Aortic enhancement above baseline</td>
+</tr>
+<tr>
+<td><code>pv_aorta_hu_ratio</code></td>
+<td>—</td>
+<td>Portal vein / aorta HU ratio</td>
+</tr>
+<tr>
+<td><code>ivc_aorta_hu_ratio</code></td>
+<td>—</td>
+<td>IVC / aorta HU ratio</td>
+</tr>
+<tr>
+<td><code>vein_opac_gate</code></td>
+<td>0–1</td>
+<td>Sigmoid venous opacification gate</td>
+</tr>
+</tbody>
+</table>
+<p>Vessel prefixes: <code>aorta</code>, <code>portal_vein_and_splenic_vein</code>, <code>inferior_vena_cava</code>.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../hepatobiliary/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Hepatobiliary">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Hepatobiliary
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../bowel/" class="md-footer__link md-footer__link--next" aria-label="Next: Bowel">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Bowel
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2025 Lavsen Dahal, Duke University
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["announce.dismiss", "content.code.annotate", "content.code.copy", "content.code.select", "content.footnote.tooltips", "content.tabs.link", "content.tooltips", "navigation.footer", "navigation.indexes", "navigation.instant", "navigation.instant.prefetch", "navigation.path", "navigation.sections", "navigation.top", "navigation.tracking", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
