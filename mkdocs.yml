@@ -1,0 +1,94 @@
+site_name: Image-Derived Phenotypes
+site_description: Comprehensive CT-based biomarkers from automated organ segmentation — documentation for the PhenoCT Python package.
+site_author: Lavsen Dahal
+copyright: Copyright &copy; 2025 Lavsen Dahal, Duke University
+
+nav:
+  - Home: index.md
+  - Getting Started: getting-started.md
+  - Extractors:
+    - Overview: extractors/index.md
+    - Organ Morphology: extractors/organ-morphology.md
+    - Cardiothoracic: extractors/cardiothoracic.md
+    - Hepatobiliary: extractors/hepatobiliary.md
+    - Vascular: extractors/vascular.md
+    - Bowel: extractors/bowel.md
+    - Fluid & Gas: extractors/fluid-gas.md
+    - Bone: extractors/bone.md
+    - Kidney: extractors/kidney.md
+    - Appendix / RLQ: extractors/appendix.md
+  - Feature Reference: feature-reference.md
+
+theme:
+  name: material
+  language: en
+  font:
+    text: Inter
+    code: JetBrains Mono
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - announce.dismiss
+    - content.code.annotate
+    - content.code.copy
+    - content.code.select
+    - content.footnote.tooltips
+    - content.tabs.link
+    - content.tooltips
+    - navigation.footer
+    - navigation.indexes
+    - navigation.instant
+    - navigation.instant.prefetch
+    - navigation.path
+    - navigation.sections
+    - navigation.top
+    - navigation.tracking
+    - search.highlight
+
+plugins:
+  - search
+
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - toc:
+      permalink: true
+  - pymdownx.betterem
+  - pymdownx.caret
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
