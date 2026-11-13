@@ -1,7 +1,7 @@
 site_name: Image-Derived Phenotypes
 site_description: Comprehensive CT-based biomarkers from automated organ segmentation — documentation for the PhenoCT Python package.
-site_author: Lavsen Dahal
-copyright: Copyright &copy; 2025 Lavsen Dahal, Duke University
+site_author: Anonymous
+copyright: Anonymized for peer review
 
 nav:
   - Home: index.md
